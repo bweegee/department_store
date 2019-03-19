@@ -16,24 +16,9 @@ class DepartmentsController < ApplicationController
   end
 
   def update
-    if @department.save
-      render json: Department.all
-    else
-      render json: @department.errors, status: 422
-    end
+    if @department.
   end
 
   def destroy
-    @department.destroy
-    render json: { message: "Department #{Department.name} has been destroyed" }
   end
-
-  private
-    def set_department
-      @department = Department.find([:id])
-    end
-
-    def department_params
-      params.require(:department).permit(:name)
-    end
 end
