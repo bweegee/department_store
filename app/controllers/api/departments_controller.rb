@@ -1,4 +1,4 @@
-class DepartmentsController < ApplicationController
+class Api::DepartmentsController < ApplicationController
   before_action :set_department, only: [:update, :destroy]
 
   def index
@@ -16,9 +16,24 @@ class DepartmentsController < ApplicationController
   end
 
   def update
-    if @department.
+    if @department.save
+      render json: Department.all
+    else
+      render json: @department.errors, status: 422
+    end
   end
 
   def destroy
+    @department.destroy
+    render json: { message: "Department #{Department.name} has been destroyed" }
   end
+
+  private
+    def set_department
+      @department = Department.find(params[:id])
+    end
+
+    def department_params
+      params.require(:department).permit(:name)
+    end
 end
