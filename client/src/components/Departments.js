@@ -23,6 +23,14 @@ class Departments extends React.Component {
           <Header as='h4'>
             { department.name }
           </Header>
+          <Button
+            as={Link}
+            to={`/departments/${department.id}/items`}
+            color='blue'
+            size='mini'
+          >
+            View Products
+          </Button>
         </Segment>
     ))
   }
@@ -38,6 +46,8 @@ class Departments extends React.Component {
                 as={Link}
                 to='/departments/new'
                 size='mini'
+                basic
+                color='green'
             >
               <Icon
                 name='plus'

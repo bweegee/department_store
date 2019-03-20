@@ -42,7 +42,7 @@ class DepartmentsForm extends React.Component {
         </Form>
       </Segment>
       </Segment.Group>
-    )
+   )
   }
 }
 

@@ -1,8 +1,12 @@
 class Api::DepartmentsController < ApplicationController
-  before_action :set_department, only: [:update, :destroy]
+  before_action :set_department, only: [:show, :update, :destroy]
 
   def index
     render json: Department.all
+  end
+
+  def show
+    render json: @department
   end
 
   def create
