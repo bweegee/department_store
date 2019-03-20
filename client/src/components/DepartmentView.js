@@ -6,7 +6,7 @@ class DepartmentView extends React.Component {
   state = { departments: [], items: [] }
 
   componentDidMount() {
-    axios.get(`api/departments/${this.props.match.params.id}/items`)
+    axios.get(`/api/departments/${this.props.match.params.id}/items`)
       .then( res => {
         debugger
         // this.setState({ department: res.data, });
