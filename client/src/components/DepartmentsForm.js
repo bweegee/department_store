@@ -7,12 +7,19 @@ class DepartmentsForm extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const department = { ...this.state }
-    axios.post('/api/departments', department)
-      .then( res => {
-        this.props.history.push('/departments');
-      })
-    this.setState({name: ""});
+    const department = { ...this.state };
+    const { id } = this.props.match.params;
+    if (id) {
+      axios.patch(`/api/departments/${id}`, department)
+        .then( res => {
+          this.props.history.push(`/departments/`)
+        })
+    } else {
+      axios.post(`/api/departments`, department)
+        .then( res => {
+          this.props.history.push(`/departments`)
+        })
+    }
   }
 
   handleChange = event => {
@@ -37,7 +44,7 @@ class DepartmentsForm extends React.Component {
             value={name}
           />
           <Form.Button color='green'>
-            Add
+            Submit
           </Form.Button>
         </Form>
       </Segment>

@@ -24,6 +24,16 @@ class Departments extends React.Component {
             { department.name }
           </Header>
           <Button
+            as={Link}
+            to={`/departments/${department.id}/edit`}
+            basic
+            size='mini'
+          >
+          <Icon
+            name='edit'
+          />
+          </Button>
+          <Button
             icon
             color='red'
             size='mini'
@@ -51,6 +61,7 @@ class Departments extends React.Component {
         this.setState({ departments: departments.filter(d => d.id !== id), })
       })
   }
+
 
   render() {
     return(
