@@ -21,7 +21,7 @@ class Api::DepartmentsController < ApplicationController
 
   def update
     if @department.save
-      render json: @department
+      render json: Department.all
     else
       render json: @department.errors, status: 422
     end

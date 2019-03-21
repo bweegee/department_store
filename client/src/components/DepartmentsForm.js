@@ -5,6 +5,16 @@ import { Form, Segment, Header, } from 'semantic-ui-react';
 class DepartmentsForm extends React.Component {
   state = { name: "" };
 
+  componentDidMount() {
+    if (this.props.match.params.id)
+      axios.get(`/api/departments/${this.props.match.params.id}`)
+        .then( res => {
+          debugger
+
+          // this.setState({ name: res.data.department.name })
+        })
+  }
+
   handleSubmit = (e) => {
     e.preventDefault();
     const department = { ...this.state };
@@ -12,7 +22,7 @@ class DepartmentsForm extends React.Component {
     if (id) {
       axios.patch(`/api/departments/${id}`, department)
         .then( res => {
-          this.props.history.push(`/departments/`)
+          this.props.history.push(`/departments/${id}`)
         })
     } else {
       axios.post(`/api/departments`, department)
@@ -33,7 +43,7 @@ class DepartmentsForm extends React.Component {
     return(
       <Segment.Group style={{marginTop: '10px'}}>
       <Segment>
-        <Header as='h1'>Add a Department</Header>
+        <Header as='h1'>Department</Header>
         <Form onSubmit={this.handleSubmit}>
           <Form.Input
             label='Name'
