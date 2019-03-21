@@ -6,19 +6,18 @@ class DepartmentsForm extends React.Component {
   state = { name: "" };
 
   componentDidMount() {
-    if (this.props.match.params.id)
-      axios.get(`/api/departments/${this.props.match.params.id}`)
+    const id = this.props.match.params.id
+    if (id)
+      axios.get(`/api/departments/${id}`)
         .then( res => {
-          debugger
-
-          // this.setState({ name: res.data.department.name })
+          this.setState({ name: res.data.name })
         })
   }
 
   handleSubmit = (e) => {
     e.preventDefault();
     const department = { ...this.state };
-    const { id } = this.props.match.params;
+    const id = this.props.match.params.id;
     if (id) {
       axios.patch(`/api/departments/${id}`, department)
         .then( res => {

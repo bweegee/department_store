@@ -6,7 +6,7 @@ class Api::DepartmentsController < ApplicationController
   end
 
   def show
-    render json: @department.items
+    render json: @department
   end
 
   def create
@@ -20,8 +20,8 @@ class Api::DepartmentsController < ApplicationController
   end
 
   def update
-    if @department.save
-      render json: Department.all
+    if @department.update(department_params)
+      render json: @department
     else
       render json: @department.errors, status: 422
     end
