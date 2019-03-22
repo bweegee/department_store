@@ -1,8 +1,10 @@
 import React from 'react';
 import axios from 'axios';
-import {Grid, Button, Segment} from 'semantic-ui-react';
+import {Segment, } from 'semantic-ui-react';
 import styled from 'styled-components';
 import {Link} from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { fas fa-long-arrow-left } from '@fortawesome/free-solid-svg-icons';
 
 class DepartmentView extends React.Component {
   state = {departments: [], items: []};
@@ -35,7 +37,13 @@ class DepartmentView extends React.Component {
 
   render() {
     const dept_id = this.props.match.params.department_id;
-    return <NiceDiv>{this.renderItems()}</NiceDiv>;
+    return
+      <Link to={dept_id}>
+      <FontAwesomeIcon
+        icon={fas fa-long-arrow-left}
+      />
+      </Link>
+      <NiceDiv>{this.renderItems()}</NiceDiv>;
   }
 }
 
@@ -54,5 +62,9 @@ const NiceSeg = styled.div`
   margin: 0px;
   display: inline-block;
 `;
+
+const BackButt = styled.button`
+  <i class="fas fa-long-arrow-left"></i>
+`
 
 export default DepartmentView;
