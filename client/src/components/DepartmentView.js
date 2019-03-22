@@ -1,50 +1,57 @@
 import React from 'react';
 import axios from 'axios';
-import { Grid, } from 'semantic-ui-react';
+import {Grid, Button, Segment} from 'semantic-ui-react';
+import styled from 'styled-components';
+import {Link} from 'react-router-dom';
 
 class DepartmentView extends React.Component {
-  state = { departments: [], items: [] }
+  state = {departments: [], items: []};
 
   componentDidMount() {
-    axios.get(`/api/departments/${this.props.match.params.id}/items`)
-      .then( res => {
-        // debugger
-        this.setState({ items: res.data, });
-      })
+    axios
+      .get(`/api/departments/${this.props.match.params.id}/items`)
+      .then(res => {
+        this.setState({items: res.data});
+      });
   }
 
   renderItems = () => {
-    const { items, } = this.state;
+    const {items} = this.state;
 
-    if (items.length <= 0)
-      return <h2>Sorry, no products for sale.</h2>
+    if (items.length <= 0) return <h2>Sorry, no products for sale.</h2>;
 
-    return items.map( item => (
-        <Grid.Column key={item.id}>
-          <Grid celled>
-            <Grid.Row>
-            <Grid.Column>
-          { item.name }
-            </Grid.Column>
-            <Grid.Column>
-          ${ item.id }
-            </Grid.Column>
-        </Grid.Row>
-        <Grid.Row>
-          { item.description }
-        </Grid.Row>
-        </Grid>
-        </Grid.Column>
-    ))
-  }
+    return items.map(item => (
+      <Segment.Group>
+        <Segment.Group horizontal key={item.id}>
+          <Segment><NiceHeader>{item.name}</NiceHeader></Segment>
+          <Segment><NiceHeader>${item.price}</NiceHeader></Segment>
+        </Segment.Group>
+        <Segment.Group>
+          <Segment>{item.description}</Segment>
+        </Segment.Group>
+      </Segment.Group>
+    ));
+  };
 
   render() {
-    return (
-      <Grid container columns={3}>
-        { this.renderItems() }
-      </Grid>
-    )
+    const dept_id = this.props.match.params.department_id;
+    return <NiceDiv>{this.renderItems()}</NiceDiv>;
   }
 }
+
+const NiceDiv = styled.div`
+  padding: 10px;
+  margin: 0px;
+  text-align: center;
+`;
+
+const NiceHeader = styled.h3`
+  text-align: center;
+`;
+
+const NiceSeg = styled.div`
+  padding: 10px;
+  margin: 0px;
+`;
 
 export default DepartmentView;
