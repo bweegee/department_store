@@ -21,13 +21,13 @@ class DepartmentView extends React.Component {
     if (items.length <= 0) return <h2>Sorry, no products for sale.</h2>;
 
     return items.map(item => (
-      <Segment.Group>
-        <Segment.Group horizontal key={item.id}>
+      <Segment.Group key={item.id}>
+        <Segment.Group horizontal>
           <Segment><NiceHeader>{item.name}</NiceHeader></Segment>
           <Segment><NiceHeader>${item.price}</NiceHeader></Segment>
         </Segment.Group>
         <Segment.Group>
-          <Segment>{item.description}</Segment>
+          <NiceSeg>{item.description}</NiceSeg>
         </Segment.Group>
       </Segment.Group>
     ));
@@ -52,6 +52,7 @@ const NiceHeader = styled.h3`
 const NiceSeg = styled.div`
   padding: 10px;
   margin: 0px;
+  display: inline-block;
 `;
 
 export default DepartmentView;
