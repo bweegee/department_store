@@ -3,8 +3,7 @@ import axios from 'axios';
 import {Segment, } from 'semantic-ui-react';
 import styled from 'styled-components';
 import {Link} from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { fas fa-long-arrow-left } from '@fortawesome/free-solid-svg-icons';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 class DepartmentView extends React.Component {
   state = {departments: [], items: []};
@@ -19,13 +18,18 @@ class DepartmentView extends React.Component {
 
   renderItems = () => {
     const {items} = this.state;
+    const dept_id = this.props.match.params.department_id;
 
     if (items.length <= 0) return <h2>Sorry, no products for sale.</h2>;
 
     return items.map(item => (
       <Segment.Group key={item.id}>
         <Segment.Group horizontal>
-          <Segment><NiceHeader>{item.name}</NiceHeader></Segment>
+          <Segment><NiceHeader>
+          <Link to={`departments/${dept_id}/items/${item.id}`}>
+            {item.name}
+        </Link>
+        </NiceHeader></Segment>
           <Segment><NiceHeader>${item.price}</NiceHeader></Segment>
         </Segment.Group>
         <Segment.Group>
@@ -36,14 +40,11 @@ class DepartmentView extends React.Component {
   };
 
   render() {
-    const dept_id = this.props.match.params.department_id;
-    return
-      <Link to={dept_id}>
-      <FontAwesomeIcon
-        icon={fas fa-long-arrow-left}
-      />
-      </Link>
-      <NiceDiv>{this.renderItems()}</NiceDiv>;
+    return(
+      <NiceDiv>
+      {this.renderItems()}
+    </NiceDiv>
+    )
   }
 }
 
@@ -63,8 +64,8 @@ const NiceSeg = styled.div`
   display: inline-block;
 `;
 
-const BackButt = styled.button`
-  <i class="fas fa-long-arrow-left"></i>
-`
+// const BackButt = styled.button`
+//   <i class="fas fa-long-arrow-left"></i>
+// `
 
 export default DepartmentView;
